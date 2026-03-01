@@ -1,92 +1,57 @@
+import java.util.HashMap;
+
 public class OOPSBannerApp {
 
-    // Inner static class
-    static class CharacterPatternMap {
-        private char character;
-        private String[] pattern;
+    // STEP 2: Create HashMap for character patterns
+    public static HashMap<Character, String[]> createCharacterMap() {
 
-        public CharacterPatternMap(char character, String[] pattern) {
-            this.character = character;
-            this.pattern = pattern;
-        }
+        HashMap<Character, String[]> charMap = new HashMap<>();
 
-        public char getCharacter() {
-            return character;
-        }
+        charMap.put('O', new String[]{
+            " ***** ",
+            " **  ** ",
+            " **  ** ",
+            " **  ** ",
+            " **  ** ",
+            " **  ** ",
+            " ***** "
+        });
 
-        public String[] getPattern() {
-            return pattern;
-        }
+        charMap.put('P', new String[]{
+            " ****** ",
+            " **  ** ",
+            " **  ** ",
+            " ****** ",
+            " **     ",
+            " **     ",
+            " **     "
+        });
+
+        charMap.put('S', new String[]{
+            " ****** ",
+            " **     ",
+            " **     ",
+            " ****** ",
+            "     ** ",
+            "     ** ",
+            " ****** "
+        });
+
+        return charMap;
     }
 
-    // Create pattern map array
-    public static CharacterPatternMap[] createCharacterPatternMaps() {
+    // STEP 3: Display banner using HashMap
+    public static void displayBanner(String message, HashMap<Character, String[]> charMap) {
 
-        return new CharacterPatternMap[]{
+        int height = charMap.get('O').length;
 
-            new CharacterPatternMap('O', new String[]{
-                " ***** ",
-                " **  ** ",
-                " **  ** ",
-                " **  ** ",
-                " **  ** ",
-                " **  ** ",
-                " ***** "
-            }),
-
-            new CharacterPatternMap('P', new String[]{
-                " ****** ",
-                " **  ** ",
-                " **  ** ",
-                " ****** ",
-                " **     ",
-                " **     ",
-                " **     "
-            }),
-
-            new CharacterPatternMap('S', new String[]{
-                " ****** ",
-                " **     ",
-                " **     ",
-                " ****** ",
-                "     ** ",
-                "     ** ",
-                " ****** "
-            }),
-
-            new CharacterPatternMap(' ', new String[]{
-                "   ",
-                "   ",
-                "   ",
-                "   ",
-                "   ",
-                "   ",
-                "   "
-            })
-        };
-    }
-
-    // Get pattern for character
-    public static String[] getCharacterPattern(char ch, CharacterPatternMap[] maps) {
-
-        for (CharacterPatternMap map : maps) {
-            if (map.getCharacter() == ch) {
-                return map.getPattern();
-            }
-        }
-        return new String[7];
-    }
-
-    // Print banner
-    public static void printMessage(String message, CharacterPatternMap[] maps) {
-
-        for (int i = 0; i < 7; i++) {
+        for (int i = 0; i < height; i++) {
 
             StringBuilder line = new StringBuilder();
 
             for (char ch : message.toCharArray()) {
 
-                String[] pattern = getCharacterPattern(ch, maps);
+                String[] pattern = charMap.get(ch);
                 line.append(pattern[i]).append(" ");
             }
 
@@ -94,13 +59,13 @@ public class OOPSBannerApp {
         }
     }
 
-    // Main method
+    // STEP 4: Main method
     public static void main(String[] args) {
 
-        CharacterPatternMap[] maps = createCharacterPatternMaps();
+        HashMap<Character, String[]> charMap = createCharacterMap();
 
         String message = "OOPS";
 
-        printMessage(message, maps);
+        displayBanner(message, charMap);
     }
 }
